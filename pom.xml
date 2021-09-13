@@ -10,12 +10,16 @@
 	</parent>
 	<groupId>org.evidence</groupId>
 	<artifactId>computer</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>computer</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Evidence for computer</description>
+
 	<properties>
 		<java.version>11</java.version>
+		<start-class>org.evidence.computer.ComputerApplication</start-class>
+		<version.plugin.jib>3.1.4</version.plugin.jib>
 	</properties>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -63,6 +67,16 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>${version.plugin.jib}</version>
+				<configuration>
+					<from>
+						<image>gcr.io/distroless/java:11@sha256:6bd00235394af1c60837da54d6d8b50ae903f3abecce7c1880ea3601688c570d</image>
+					</from> 
 				</configuration>
 			</plugin>
 		</plugins>
