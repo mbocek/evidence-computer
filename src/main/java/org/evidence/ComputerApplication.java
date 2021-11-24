@@ -18,6 +18,7 @@ public class ComputerApplication {
         loggingFilter.setIncludeClientInfo(true);
         loggingFilter.setIncludeQueryString(true);
         loggingFilter.setIncludePayload(true);
+        loggingFilter.setMaxPayloadLength(500);
         loggingFilter.setIncludeHeaders(false);
         return loggingFilter;
     }

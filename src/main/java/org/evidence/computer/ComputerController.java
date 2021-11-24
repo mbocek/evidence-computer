@@ -17,7 +17,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/computers")
 @RequiredArgsConstructor
 class ComputerController {
 
@@ -25,14 +25,14 @@ class ComputerController {
 
     private final AddressRepository addressRepository;
 
-    @GetMapping("/computers")
+    @GetMapping
     public ResponseEntity<List<Computer>> getAllComputers() {
         var computers = computerRepository.findAll();
         return (computers.isEmpty()) ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : ResponseEntity.ok(computers);
     }
 
-    @PostMapping("/computers")
-    public ResponseEntity<Object> createComputer(@RequestBody Computer computer) {
+    @PostMapping
+    public ResponseEntity<Computer> createComputer(@RequestBody Computer computer) {
         computerRepository.save(computer);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                         .path("/{id}")
@@ -41,13 +41,13 @@ class ComputerController {
         return ResponseEntity.created(location).body(computer);
     }
 
-    @GetMapping("/computers/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Computer> getComputer(@PathVariable Long id) {
         var computer = computerRepository.findById(id);
         return (computer.isEmpty()) ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(computer.get());
     }
 
-    @PutMapping("/computers/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Computer> updateComputer(@RequestBody Computer computer, @PathVariable Long id) {
         return computerRepository.findById(id)
         .map(storedComputer -> {
@@ -60,7 +60,7 @@ class ComputerController {
             return ResponseEntity.ok(storedComputer);
         }).orElseGet(() -> {
             throw new ComputerNotFoundException(id);
-        });        
+        });
     }
 
 }

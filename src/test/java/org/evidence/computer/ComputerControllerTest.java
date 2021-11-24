@@ -52,7 +52,7 @@ public class ComputerControllerTest extends AbstractIntegrationTest {
         var computer = getComputer();
         var entity = restTemplate.postForEntity("/api/computers", computer, Computer.class);
         assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.CREATED);
-        assertThat(entity.getHeaders().getLocation().getPath()).endsWith("/1");
+        assertThat(entity.getHeaders().getLocation().getPath()).matches("^.+?\\d$");
     }
 
     private Object getComputer() {

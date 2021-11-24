@@ -2,6 +2,7 @@ package org.evidence.computer;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Entity;
@@ -12,19 +13,19 @@ import javax.persistence.Id;
 @Entity
 @ToString
 @NoArgsConstructor
-public class Address {
+public class Address extends AbstractEntity {
 
     @Id @Getter
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Getter
+    @Getter @Setter
     private String city;
 
-    @Getter
+    @Getter @Setter
     private String zip;
 
-    @Getter
+    @Getter @Setter
     private String street;
 
 }

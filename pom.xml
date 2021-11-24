@@ -9,13 +9,13 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>org.evidence</groupId>
-	<artifactId>computer</artifactId>
+	<artifactId>evidence-computer</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<name>computer</name>
 	<description>Evidence for computer</description>
 
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 		<start-class>org.evidence.ComputerApplication</start-class>
 		<jib-plugin.version>3.1.4</jib-plugin.version>
 	</properties>
@@ -89,8 +89,11 @@
 				<version>${jib-plugin.version}</version>
 				<configuration>
 					<from>
-						<image>gcr.io/distroless/java:11@sha256:6bd00235394af1c60837da54d6d8b50ae903f3abecce7c1880ea3601688c570d</image>
+						<image>docker.io/library/openjdk:17-alpine</image>
 					</from>
+                    <ports>
+                        <port>8080</port>
+                    </ports>
 				</configuration>
 			</plugin>
 		</plugins>
