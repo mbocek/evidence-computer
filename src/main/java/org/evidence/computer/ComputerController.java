@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -63,4 +64,13 @@ class ComputerController {
         });
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Computer> deleteComputer(@PathVariable Long id) {
+        return computerRepository.findById(id).map(computer -> {
+            computerRepository.delete(computer);
+            return ResponseEntity.ok(computer);
+        }).orElseGet(() -> {
+            throw new ComputerNotFoundException(id);
+        });
+    }
 }

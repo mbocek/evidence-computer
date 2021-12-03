@@ -55,6 +55,14 @@ public class ComputerControllerTest extends AbstractIntegrationTest {
         assertThat(entity.getHeaders().getLocation().getPath()).matches("^.+?\\d$");
     }
 
+    @Test
+    public void deleteComputer() {
+        var entity = restTemplate.exchange("/api/computers/1000000", HttpMethod.DELETE, null,
+                                            new ParameterizedTypeReference<Computer>() {});
+        assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(entity.getBody().getId()).isEqualTo(1000000);
+    }
+
     private Object getComputer() {
         var computer = new Computer();
         computer.setName("computer-1");

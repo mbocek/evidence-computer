@@ -53,4 +53,12 @@ public class AddressControllerTest extends AbstractIntegrationTest {
         assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(entity.getHeaders().getLocation().getPath()).matches("^.+?\\d$");
     }
+
+    @Test
+    public void deleteAddress() {
+        var entity = restTemplate.exchange("/api/addresses/1000000", HttpMethod.DELETE, null,
+                                            new ParameterizedTypeReference<Address>() {});
+        assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(entity.getBody().getId()).isEqualTo(1000000);
+    }
 }

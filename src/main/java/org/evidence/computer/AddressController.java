@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,7 +47,7 @@ class AddressController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Address> updateComputer(@RequestBody Address address, @PathVariable Long id) {
+    public ResponseEntity<Address> updateAddress(@RequestBody Address address, @PathVariable Long id) {
         return addressRepository.findById(id)
         .map(storedAddress -> {
             storedAddress.setStreet(address.getStreet());
@@ -55,8 +56,17 @@ class AddressController {
             addressRepository.save(storedAddress);
             return ResponseEntity.ok(storedAddress);
         }).orElseGet(() -> {
-            throw new ComputerNotFoundException(id);
+            throw new AddressNotFoundException(id);
         });
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Address> deleteAddress(@PathVariable Long id) {
+        return addressRepository.findById(id).map(address -> {
+            addressRepository.delete(address);
+            return ResponseEntity.ok(address);
+        }).orElseGet(() -> {
+            throw new AddressNotFoundException(id);
+        });
+    }
 }
