@@ -12,7 +12,7 @@ import org.springframework.test.context.jdbc.SqlGroup;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @SqlGroup({
@@ -67,7 +67,7 @@ public class ComputerControllerTest extends AbstractIntegrationTest {
         var computer = new Computer();
         computer.setName("computer-1");
         computer.setDomain("domain.lan");
-        computer.setPurchaseDate(LocalDateTime.now());
+        computer.setPurchaseDate(LocalDate.now());
         computer.setVendor("vendor-1");
         computer.setLocality(addressRepository.findById(1000000L).get());
         return computer;

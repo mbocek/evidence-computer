@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @ToString
@@ -32,7 +32,7 @@ class Computer extends AbstractEntity {
 
     @Getter @Setter
     @Column(nullable = false)
-    private LocalDateTime purchaseDate;
+    private LocalDate purchaseDate;
 
     @ManyToOne
     @JoinColumn(name = "locality_id", nullable = false)
