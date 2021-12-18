@@ -16,7 +16,7 @@ import javax.persistence.Id;
 public class Address extends AbstractEntity {
 
     @Id @Getter
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Getter @Setter
