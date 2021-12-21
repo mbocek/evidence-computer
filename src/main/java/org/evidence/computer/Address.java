@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,12 +21,15 @@ public class Address extends AbstractEntity {
     private Long id;
 
     @Getter @Setter
+    @Column(nullable = false, length = 255)
     private String city;
 
     @Getter @Setter
+    @Column(nullable = false, length = 10)
     private String zip;
 
     @Getter @Setter
+    @Column(nullable = false, length = 255)
     private String street;
 
 }

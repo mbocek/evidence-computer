@@ -4,8 +4,8 @@
 CREATE TABLE address
 (
     id SERIAL NOT NULL,
-    city VARCHAR(255),
-    street VARCHAR(255),
-    zip VARCHAR(10),
+    city VARCHAR(255) NOT NULL,
+    street VARCHAR(255) NOT NULL,
+    zip VARCHAR(10) NOT NULL,
     CONSTRAINT pk_address PRIMARY KEY (id)
 );
