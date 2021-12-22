@@ -3,6 +3,8 @@ package org.evidence.computer;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,7 +35,7 @@ class ComputerController {
     }
 
     @PostMapping
-    public ResponseEntity<Computer> createComputer(@RequestBody Computer computer) {
+    public ResponseEntity<Computer> createComputer(@Valid @RequestBody Computer computer) {
         computerRepository.save(computer);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                         .path("/{id}")
@@ -49,7 +51,7 @@ class ComputerController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Computer> updateComputer(@RequestBody Computer computer, @PathVariable Long id) {
+    public ResponseEntity<Computer> updateComputer(@Valid @RequestBody Computer computer, @PathVariable Long id) {
         return computerRepository.findById(id)
         .map(storedComputer -> {
             storedComputer.setName(computer.getName());

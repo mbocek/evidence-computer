@@ -4,10 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.evidence.AbstractIntegrationTest;
+import org.evidence.common.ApiError;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class CustomRestExceptionHandlerTest extends AbstractIntegrationTest {
 
@@ -16,10 +19,10 @@ class CustomRestExceptionHandlerTest extends AbstractIntegrationTest {
 
     @Test
     public void whenNoHandlerForHttpRequest_thenNotFound() {
-        ApiError response = restTemplate.getForObject("/api/xx", ApiError.class);
+        var response = restTemplate.getForObject("/api/xx", ApiError.class);
 
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatus());
-        assertEquals(1, response.getErrors().size());
-        assertTrue(response.getErrors().get(0).contains("No handler found"));
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.NOT_FOUND);
+        assertThat(response.getMessage()).startsWith("No handler found");
+        assertThat(response.getDetail()).isNotEmpty();
     }
 }

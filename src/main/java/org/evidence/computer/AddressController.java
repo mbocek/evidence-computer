@@ -3,6 +3,8 @@ package org.evidence.computer;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,7 +33,7 @@ class AddressController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> createAddress(@RequestBody Address address) {
+    public ResponseEntity<Object> createAddress(@Valid @RequestBody Address address) {
         addressRepository.save(address);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                         .path("/{id}")
@@ -47,7 +49,7 @@ class AddressController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Address> updateAddress(@RequestBody Address address, @PathVariable Long id) {
+    public ResponseEntity<Address> updateAddress(@Valid @RequestBody Address address, @PathVariable Long id) {
         return addressRepository.findById(id)
         .map(storedAddress -> {
             storedAddress.setStreet(address.getStreet());

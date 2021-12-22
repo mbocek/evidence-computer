@@ -4,7 +4,7 @@
 CREATE TABLE computer
 (
     id SERIAL NOT NULL,
-    domain VARCHAR(100)  NOT NULL,
+    domain VARCHAR(100) NOT NULL,
     name VARCHAR(100) NOT NULL,
     purchase_date DATE NOT NULL,
     vendor VARCHAR(255) NOT NULL,

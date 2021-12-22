@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 @ToString
@@ -21,14 +23,20 @@ public class Address extends AbstractEntity {
     private Long id;
 
     @Getter @Setter
+    @NotBlank(message = "City cannot be empty")
+    @Size(min = 1, max = 255, message = "City must be between 1 and 255 characters")
     @Column(nullable = false, length = 255)
     private String city;
 
     @Getter @Setter
+    @NotBlank(message = "Zip code cannot be empty")
+    @Size(min = 1, max = 10, message = "Zip must be between 1 and 10 characters")
     @Column(nullable = false, length = 10)
     private String zip;
 
     @Getter @Setter
+    @NotBlank(message = "Street cannot be empty")
+    @Size(min = 1, max = 255, message = "Street must be between 1 and 255 characters")
     @Column(nullable = false, length = 255)
     private String street;
 
