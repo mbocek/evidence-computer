@@ -31,7 +31,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         var error = "No handler found for " + ex.getHttpMethod() + " " + ex.getRequestURL();
         var apiError = new ApiError(HttpStatus.NOT_FOUND, error, ex.getLocalizedMessage());
         log.debug(apiError.toString());
-        return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
+        return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 
     @Override
@@ -39,7 +39,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         var error = "Message not writeable";
         var apiError = new ApiError(status, error, ex.getLocalizedMessage());
         log.warn(error, ex);
-        return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
+        return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 
     @Override
@@ -48,7 +48,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         var error = "Message not readable";
         var apiError = new ApiError(status, error, ex.getLocalizedMessage());
         log.warn(error, ex);
-        return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
+        return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 
     @Override
@@ -58,14 +58,14 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
             .map(it -> new FieldError(it.getObjectName(), it.getField(), it.getDefaultMessage()))
             .collect(Collectors.toList());
         var apiError = new ApiError(status, error, ex.getLocalizedMessage(), errors);
-        return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
+        return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleAll(Exception ex, HttpServletRequest request, HttpServletResponse response) {
         var apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, "Error occurred", ex.getLocalizedMessage());
         log.info(apiError.toString());
-        return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
+        return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 
 }

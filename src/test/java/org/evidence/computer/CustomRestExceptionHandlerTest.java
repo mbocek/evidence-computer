@@ -18,7 +18,7 @@ class CustomRestExceptionHandlerTest extends AbstractIntegrationTest {
     private TestRestTemplate restTemplate;
 
     @Test
-    public void whenNoHandlerForHttpRequest_thenNotFound() {
+    void whenNoHandlerForHttpRequest_thenNotFound() {
         var response = restTemplate.getForObject("/api/xx", ApiError.class);
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.NOT_FOUND);

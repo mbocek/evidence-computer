@@ -16,7 +16,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @SpringBootTest(classes = {ComputerApplication.class},
                 webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Testcontainers
-public class AbstractIntegrationTest {
+public abstract class AbstractIntegrationTest {
 
     @Container
     public static PostgreSQLContainer database = TestPostgresqlContainer.getInstance();

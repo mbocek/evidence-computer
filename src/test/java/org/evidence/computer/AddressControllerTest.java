@@ -18,33 +18,33 @@ import java.util.List;
     @Sql(scripts = {"/sql/address.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
     @Sql(scripts = {"/sql/cleanup.sql"}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 })
-public class AddressControllerTest extends AbstractIntegrationTest {
+class AddressControllerTest extends AbstractIntegrationTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
 
     @Test
-    public void getExistingAddress() {
+    void getExistingAddress() {
         var entity = restTemplate.getForEntity("/api/addresses/1000000", Address.class);
         assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
     @Test
-    public void getNonExistingAddress() {
+    void getNonExistingAddress() {
         var entity = restTemplate.getForEntity("/api/addresses/-1", Computer.class);
         assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
     @Test
-    public void getAllAddresses() {
+    void getAllAddresses() {
         var entity = restTemplate.exchange("/api/addresses", HttpMethod.GET, null,
                                            new ParameterizedTypeReference<List<Address>>() {});
         assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(entity.getBody().size()).isGreaterThan(0);
+        assertThat(entity.getBody().size()).isPositive();
     }
 
     @Test
-    public void createAddress() {
+    void createAddress() {
         var address = new Address();
         address.setCity("Prague");
         address.setStreet("Nám. Republiky 1078/1");
@@ -55,7 +55,7 @@ public class AddressControllerTest extends AbstractIntegrationTest {
     }
 
     @Test
-    public void deleteAddress() {
+    void deleteAddress() {
         var entity = restTemplate.exchange("/api/addresses/1000000", HttpMethod.DELETE, null,
                                             new ParameterizedTypeReference<Address>() {});
         assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);

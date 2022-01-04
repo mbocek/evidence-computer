@@ -19,7 +19,7 @@ import java.util.List;
     @Sql(scripts = {"/sql/address.sql", "/sql/computer.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
     @Sql(scripts = {"/sql/cleanup.sql"}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 })
-public class ComputerControllerTest extends AbstractIntegrationTest {
+class ComputerControllerTest extends AbstractIntegrationTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -28,27 +28,27 @@ public class ComputerControllerTest extends AbstractIntegrationTest {
     private AddressRepository addressRepository;
 
     @Test
-    public void getExistingComputer() {
+    void getExistingComputer() {
         var entity = restTemplate.getForEntity("/api/computers/1000000", Computer.class);
         assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
     @Test
-    public void getNonExistingComputer() {
+    void getNonExistingComputer() {
         var entity = restTemplate.getForEntity("/api/computers/-1", Computer.class);
         assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
     @Test
-    public void getAllComputers() {
+    void getAllComputers() {
         var entity = restTemplate.exchange("/api/computers", HttpMethod.GET, null,
                                            new ParameterizedTypeReference<List<Computer>>() {});
         assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(entity.getBody().size()).isGreaterThan(0);
+        assertThat(entity.getBody().size()).isPositive();
     }
 
     @Test
-    public void createComputer() {
+    void createComputer() {
         var computer = getComputer();
         var entity = restTemplate.postForEntity("/api/computers", computer, Computer.class);
         assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.CREATED);
@@ -56,7 +56,7 @@ public class ComputerControllerTest extends AbstractIntegrationTest {
     }
 
     @Test
-    public void deleteComputer() {
+    void deleteComputer() {
         var entity = restTemplate.exchange("/api/computers/1000000", HttpMethod.DELETE, null,
                                             new ParameterizedTypeReference<Computer>() {});
         assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
