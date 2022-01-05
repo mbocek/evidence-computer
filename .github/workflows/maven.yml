@@ -35,7 +35,12 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: mvn -B org.jacoco:jacoco-maven-plugin:prepare-agent verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=mbocek_evidence-computer
+      run: |
+        mvn -B org.jacoco:jacoco-maven-plugin:prepare-agent \
+          verify \
+          org.jacoco:jacoco-maven-plugin:report \
+          org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+          -Dsonar.projectKey=mbocek_evidence-computer
     - name: Build and deploy to registry
       run: |
         mvn -B compile jib:build \
