@@ -56,7 +56,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         var error = "Validation error";
         List<FieldError> errors = ex.getBindingResult().getFieldErrors().stream()
             .map(it -> new FieldError(it.getObjectName(), it.getField(), it.getDefaultMessage()))
-            .collect(Collectors.toList());
+            .toList();
         var apiError = new ApiError(status, error, ex.getLocalizedMessage(), errors);
         return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
